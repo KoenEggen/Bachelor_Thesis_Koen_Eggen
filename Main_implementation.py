@@ -41,7 +41,7 @@ from Cycle_basis_stacked import Stacked
 
 # Values for the lattice size
 # L = 6
-L_range = np.arange(4, 151, 5)
+L_range = np.arange(4, 251, 5)
 
 # Specify the number of iterations and the confidence level
 num_iterations = 50
@@ -287,8 +287,8 @@ def L_dependence(L_values, num_iterations, confidence_level, threshold_degree, t
     for L in L_values:
         print(f"Processing L = {L}")
         
-        p = 1 / L**3 # for the sparse SYK graph
-        # p = 10 * 1 / L # for the Erdos-Renyi random graph
+        # p = 1 / L**3 # for the sparse SYK graph
+        p = 10 * 1 / L # for the Erdos-Renyi random graph
         
         # Initialize empty lists to keep track of all values for averaging        
         loc_ST_values = []
@@ -331,8 +331,8 @@ def L_dependence(L_values, num_iterations, confidence_level, threshold_degree, t
         for i in range(num_iterations):
             
             # Create the graph and make sure that the degree of each vertex is <= threshold_degree by removing edges
-            # G = create_Erdos_Renyi_p(L, p)
-            G = create_graph_SYK(L, p)
+            G = create_Erdos_Renyi_p(L, p)
+            # G = create_graph_SYK(L, p)
             
             G = modify_graph_degree(G, threshold_degree)
             
@@ -831,8 +831,8 @@ def plot_all_with_errorbars(
 
 
 
-# # Run the function L_dependence and store the data using pickle
-# results = L_dependence(L_range, num_iterations, confidence_level, threshold_degree, threshold_length, d, beta, prime)
+# Run the function L_dependence and store the data using pickle
+results = L_dependence(L_range, num_iterations, confidence_level, threshold_degree, threshold_length, d, beta, prime)
 
 # with open(r'C:\Users\koene\OneDrive\Documenten Koen\Studie\Jaar 4\BEP\Numerieke implementatie\Data\results_SYK_straight_sewing_no_overlap.pkl', 'wb') as f:
 #     pickle.dump(results, f)
@@ -883,9 +883,9 @@ def plot_all_with_errorbars(
 #     results_straight_no_overlap_outlier_decongestion_mean_sparsity = pickle.load(f)
 
 
-# Load the data of the sparse SYK graph
-with open(r'C:\Users\koene\OneDrive\Documenten Koen\Studie\Jaar 4\BEP\Numerieke implementatie\Data\Sparse SYK graph\results_SYK_straight_sewing_no_overlap.pkl', 'rb') as f:
-    results_SYK_straight_sewing_no_overlap = pickle.load(f)
+# # Load the data of the sparse SYK graph
+# with open(r'C:\Users\koene\OneDrive\Documenten Koen\Studie\Jaar 4\BEP\Numerieke implementatie\Data\Sparse SYK graph\results_SYK_straight_sewing_no_overlap.pkl', 'rb') as f:
+#     results_SYK_straight_sewing_no_overlap = pickle.load(f)
 
 
 
@@ -964,8 +964,8 @@ def extract_results_vars(results):
 
 
 
-variables = extract_results_vars(results_SYK_straight_sewing_no_overlap)
-name_results = "(sparse SYK graph)"
+variables = extract_results_vars(results)
+name_results = "(Erdos-Renyi graph)"
 
 
 
